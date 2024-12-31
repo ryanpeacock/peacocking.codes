@@ -7,6 +7,17 @@
     <title>Frontend Developing Please</title>
   </head>
   <body>
-    <h1>Yellow World</h1>
+    <div class="container">
+      <h1>Hello World</h1>
+    </div>
   </body>
+  <script>
+    let ws;
+    const proto = window.location.protocol === "https:" ? "wss" : "ws";
+    ws = new WebSocket(`${proto}://${window.location.host}`);
+
+    ws.onmessage = (event) => {
+      console.log(event.data);
+    };
+  </script>
 </html>
