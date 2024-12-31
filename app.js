@@ -1,8 +1,20 @@
-const http = require("http");
+const express = require("express");
+const server = require("http").createServer();
+const path = require("path");
 
-http.createServer(function(req,res) {
-  res.write("On the way to being a full stack engineer!");
-  res.end();
-}).listen(3000);
+const app = express();
 
-console.log("Server started on port 3000");
+// Serve static files from the "public" folder
+app.use(express.static(path.join(__dirname, "public")));
+
+// Serve the index.html file for the root route
+app.get("/", (req, res) => {
+  res.sendFile("index.html", { root: path.join(__dirname, "public") });
+});
+
+const PORT = 3000;
+server.on("request", app);
+
+server.listen(PORT, () => {
+  console.log(`Server is running at http://localhost:${PORT}`);
+});
